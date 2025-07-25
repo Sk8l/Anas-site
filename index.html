@@ -1,28 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="auto">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ANAS BAKHTI - Personal Site</title>
+  <title>𝑨𝒏𝒂𝒔 - Personal Site</title>
   <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" rel="stylesheet">
   <style>
-    :root {
-      --bg-light-img: url('https://imgs.search.brave.com/Q3UgJL1rbEx6R4Kfx-EPO7dqze0UrYU86TpILEwraS4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDEzOTA1/MjI2LmpwZw');
-      --bg-dark-img: url('https://imgs.search.brave.com/HStxQ4yVimN1-pGlXNbQJrjgs9L9vmljLZ8x5fHJysg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvaGQvcmVk/LWRlYWQtcmVkZW1w/dGlvbi0yLWRlc2t0/b3Atcndneng1emV5/eXJwZzNzYi5qcGc');
-      --text-light: #222;
-      --text-dark: #fff;
-    }
-
-    [data-theme="light"] {
-      --bg: var(--bg-light-img);
-      --text: var(--text-light);
-    }
-
-    [data-theme="dark"] {
-      --bg: var(--bg-dark-img);
-      --text: var(--text-dark);
-    }
-
     * {
       box-sizing: border-box;
     }
@@ -31,14 +14,13 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--bg) no-repeat center center/cover;
-      color: var(--text);
+      background: url('https://res.cloudinary.com/dtjjgiitl/image/upload/q_auto:good,f_auto,fl_progressive/v1753461711/hlzsyfmxfo2dvx5vemhc.jpg') no-repeat center center/cover;
+      color: #fff;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      transition: background 0.5s ease, color 0.5s ease;
       overflow: hidden;
     }
 
@@ -51,32 +33,44 @@
       z-index: 0;
     }
 
-    .toggle-theme {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      background: none;
-      border: 2px solid #999;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      padding: 6px 10px;
-      color: #999;
-      cursor: pointer;
-      z-index: 2;
+    /* شاشة التحميل */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
     }
 
-    .toggle-theme:hover {
-      background: #999;
-      color: #fff;
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #444;
+      border-top: 6px solid #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .container {
       z-index: 1;
       padding: 2rem;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 16px;
       backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
       max-width: 400px;
       width: 90%;
       text-align: center;
@@ -112,11 +106,39 @@
     h1 {
       margin: 0;
       font-size: 2.4rem;
+      font-style: italic;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlideIn 1.4s ease forwards;
+      animation-delay: 0.5s;
     }
 
-    p {
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .typewriter {
+      display: inline-block;
+      border-right: 2px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
       font-size: 1rem;
       margin: 0.5rem 0 1.5rem;
+      color: #ccc;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
     }
 
     .social-links {
@@ -135,83 +157,60 @@
       align-items: center;
       gap: 6px;
       font-size: 0.95rem;
-      color: #444;
-      border: 1px solid #ccc;
+      color: #fff;
+      border: 1px solid #666;
       padding: 8px 14px;
       border-radius: 6px;
       transition: 0.3s ease;
       font-weight: 500;
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .social-links a:hover,
     .call-btn:hover,
     .email-btn:hover {
-      background: #333;
-      color: #fff;
-    }
-
-    .call-btn {
-      border-color: #aaa;
-      background: rgba(255,255,255,0.6);
-      color: #222;
+      background: #fff;
+      color: #000;
     }
 
     footer {
       margin-top: 2rem;
       font-size: 0.8rem;
-      color: #ccc;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
 
-  <button class="toggle-theme" onclick="toggleTheme()">🌙</button>
+  <!-- شاشة التحميل -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
 
   <div class="container">
-    <img src="https://imgs.search.brave.com/Ay9cCazSi2NEGc_QGWyLLYgXhgg7hs8O7aWkFyUQ3Fg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzYzLzBl/LzZmLzYzMGU2ZjE0/MTZjNTAyMGZkNzM0/NmEyNjM0ZDAwYjcy/LmpwZw" alt="ANAS BAKHTI" />
+    <img src="https://res.cloudinary.com/dtjjgiitl/image/upload/q_auto:good,f_auto,fl_progressive/v1753461734/yzb8vhecauo7edz24j0a.jpg" alt="Anas" />
 
-    <h1>ANAS BAKHTI ⚡️</h1>
-    <p>?? yo Programmer. Editor. and Web Engineer</p>
+    <h1>𝑨𝒏𝒂𝒔</h1>
+    <p class="typewriter">Web developer, programmer, editor, from 🇩🇿</p>
 
     <div class="social-links">
-  <a href="https://instagram.com/s_k8l" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-  <a href="https://t.me/iluv_ps" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
-  <a href="#" onclick="alert('Discord: dd2e')"><i class="fab fa-discord"></i> Discord</a>
-  <a href="mailto:anousmc@gmail.com" class="email-btn"><i class="fas fa-envelope"></i> Email</a>
-  <a href="https://github.com/sk8l" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-  <a href="tel:+2130562010262" class="call-btn"><i class="fas fa-phone"></i> Call Me</a>
-</div>
-
+      <a href="https://instagram.com/s_k8l" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="https://t.me/iluv_ps" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+      <a href="#" onclick="alert('Discord: dd2e')"><i class="fab fa-discord"></i> Discord</a>
+      <a href="mailto:anousmc@gmail.com" class="email-btn"><i class="fas fa-envelope"></i> Email</a>
+      <a href="https://github.com/sk8l" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    </div>
 
     <footer>
-      © 2025 ANAS BAKHTI — All rights reserved.
+      © 2025 𝑨𝒏𝒂𝒔 — All rights reserved.
     </footer>
   </div>
 
   <script>
-    const htmlTag = document.documentElement;
-
-    function setTheme(mode) {
-      htmlTag.setAttribute('data-theme', mode);
-      document.querySelector('.toggle-theme').textContent = mode === 'dark' ? '☀️' : '🌙';
-      localStorage.setItem('theme', mode);
-    }
-
-    function toggleTheme() {
-      const current = htmlTag.getAttribute('data-theme');
-      const newTheme = current === 'dark' ? 'light' : 'dark';
-      setTheme(newTheme);
-    }
-
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme(prefersDark ? 'dark' : 'light');
-    }
+    // إخفاء شاشة التحميل بعد تحميل الصفحة
+    window.addEventListener("load", () => {
+      document.getElementById("loader").classList.add("hidden");
+    });
   </script>
 
 </body>
